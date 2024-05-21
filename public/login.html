@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+  </head>
+  <body>
+    <form id="login">
+      <input type="text" name="userId" placeholder="UserId" />
+      <button type="submit">Login with passkey</button>
+    </form>
+
+    <script src="https://unpkg.com/@simplewebauthn/browser/dist/bundle/index.umd.min.js"></script>
+    <script>
+      document
+        .getElementById("login")
+        .addEventListener("submit", async function (e) {
+          e.preventDefault();
+          var userId = this.userId.value;
+          const response = await fetch(
+            `http://localhost:8000/api/auth-guardian/passkey-login-challenge`,
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ userId }),
+            }
+          );
+          const data = await response.json();
+          const challenge = data.data.options; //server side challenge
+          const authResponse = await SimpleWebAuthnBrowser.startAuthentication(
+            challenge
+          ); //navigator.credentials.get is called
+          console.log(authResponse);
+          const finalRes = await fetch(
+            `http://localhost:8000/api/auth-guardian/passkey-login-verify`,
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ userId, cred: authResponse }),
+            }
+          )
+            .then((res) => res.json())
+            .then((data) => console.log(data))
+            .catch((err) => console.log(err));
+          // console.log(finalRes.json(),"finalRes")
+        });
+    </script>
+  </body>
+</html>

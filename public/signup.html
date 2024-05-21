@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup</title>
+</head>
+<body>
+    <form id="signup">
+        <input type="text" name="email" placeholder="Email">
+        <input type="password" name="password" placeholder="Password">
+        <button type="submit">Signup</button>
+    </form>
+
+    <script>
+        document.getElementById('signup').addEventListener('submit', function(e) {
+            e.preventDefault();
+            var email = this.email.value;
+            var password = this.password.value;
+
+            fetch('http://localhost:8000/api/auth-guardian/test', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ email, password })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    alert(data.error);
+                } else {
+                    alert('Signup successful');
+                    console.log(data)
+                    window.location = `/public/profile.html?userId=${data.data.id}`;
+                }
+            });
+        });
+    </script>
+</body>
+</html>
