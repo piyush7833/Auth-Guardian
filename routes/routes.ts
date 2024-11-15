@@ -1,5 +1,7 @@
 import express from "express";
-import { googleAuth } from "../controllers/google";
+import passport from 'passport';
+
+import { googleAuth, googleAuthCallback } from "../controllers/google";
 import { facebookAuth } from "../controllers/facebook";
 import { twitterAuth } from "../controllers/twitter";
 import { githubAuth } from "../controllers/github";
@@ -9,11 +11,16 @@ import { metamaskAuth } from "../controllers/metamask";
 import { appleAuth } from "../controllers/apple";
 import { passkeyAuth, passkeyChallenge, passkeyLoginChallenge, passkeyLoginVerify, passkeyVerify } from "../controllers/passkey";
 import { test } from "../controllers/test";
+
 const router = express.Router();
 
 router.post("/test",test)
+router.get('/google', googleAuth);
 
-router.post("/google",googleAuth );
+// Google OAuth callback route (should match the callbackURL in the GoogleStrategy)
+router.get('/google/callback', passport.authenticate('google', { failureRedirect: '/login' }), googleAuthCallback);
+
+
 
 router.post("/facebook", facebookAuth); 
 
