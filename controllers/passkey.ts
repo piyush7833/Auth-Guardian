@@ -30,11 +30,13 @@ export const passkeyChallenge = async (req: Request, res: Response) => {
     if (!userStore[userId]) {
       return ResponseHandler("User not found", null, 404, true, res);
     }
+    console.log(userId)
     const challengePayload = await generateRegistrationOptions({
       rpID: "localhost", // Use your server's URL
       rpName: "passekey-test in localhost", // Use your app's name
       userName: userStore[userId].email,
     });
+    console.log(challengePayload)
     challengeStore[userId] = challengePayload.challenge;
     return ResponseHandler(
       "Passkey challenge created successfully",
@@ -153,3 +155,12 @@ export const passkeyLoginVerify = async (req: Request, res: Response) => {
     return ResponseHandler("Something went wrong", null, 500, true, res);
   }
 };
+
+
+//library flow
+//1. create an schema for userStore
+//2. create an userStore will consist of userName, email, siteUrl, passKey
+//3. create an schema for challengeStore, once challenge is verified remove it from challenge store
+//4. create an schema for loginChallengeStore, once challenge is verified remove it from loginChallengeStore
+//5. In passkey signup and button take userName, email, siteUrl as prop and send it to passkeyChallenge //email can be optional //username can be replaced as unique prop
+

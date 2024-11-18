@@ -1,8 +1,8 @@
 import express from "express";
-import { googleAuth } from "../controllers/google";
+// import { googleAuth } from "../controllers/google";
 import { facebookAuth } from "../controllers/facebook";
 import { twitterAuth } from "../controllers/twitter";
-import { githubAuth } from "../controllers/github";
+import { githubAuth, githubAuthCallback } from "../controllers/github";
 import { linkedinAuth } from "../controllers/linkedin";
 import { microsoftAuth } from "../controllers/microsoft";
 import { metamaskAuth } from "../controllers/metamask";
@@ -13,13 +13,14 @@ const router = express.Router();
 
 router.post("/test",test)
 
-router.post("/google",googleAuth );
+// router.post("/google",googleAuth );
 
 router.post("/facebook", facebookAuth); 
 
 router.post("/twitter", twitterAuth);
 
-router.post("/github", githubAuth);
+router.get("/github", githubAuth);
+router.post("/github/callback", githubAuthCallback);
 
 router.post("/linkedin", linkedinAuth);
 
