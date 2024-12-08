@@ -5,7 +5,6 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
-   
   },
   "author": "",
   "license": "ISC",
@@ -20,6 +19,7 @@
     "googleapis": "^137.1.0",
     "passport": "^0.7.0",
     "passport-google-oauth20": "^2.0.0",
+    "passport-twitter": "^1.0.4",
     "ts-node": "^10.9.2"
   },
   "devDependencies": {
@@ -28,6 +28,7 @@
     "@types/express-session": "^1.18.0",
     "@types/node": "^22.7.9",
     "@types/passport-google-oauth20": "^2.0.16",
+    "@types/passport-twitter": "^1.0.40",
     "nodemon": "^3.1.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.6.3"

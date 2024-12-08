@@ -9,6 +9,7 @@ const CALLBACK_URL = process.env.GITHUB_CALLBACK_URL;
 export const githubAuth = async (req: Request, res: Response) => {
   try {
     const githubAuthUrl = `https://github.com/login/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${CALLBACK_URL}&scope=user`;
+    console.log(githubAuthUrl);
     res.redirect(githubAuthUrl);
   } catch (error) {
     return ResponseHandler("Something went wrong", null, 500, true, res);
@@ -40,11 +41,13 @@ export const githubAuthCallback = async (req: Request, res: Response) => {
     });
     console.log(userResponse);
     const data = {
+      userName: userResponse.data.login,
       name: userResponse.data.name,
       email: userResponse.data.email,
       phone: userResponse.data.phone,
       avatar: userResponse.data.avatar_url,
     };
+    console.log(data);
     return ResponseHandler(
       "Github Authenticated successfully",
       data,

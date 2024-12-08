@@ -3,7 +3,7 @@ import passport from 'passport';
 
 import { googleAuth, googleAuthCallback } from "../controllers/google";
 import { facebookAuth } from "../controllers/facebook";
-import { twitterAuth } from "../controllers/twitter";
+import { twitterAuth, twitterAuthCallback } from "../controllers/twitter";
 import { githubAuth, githubAuthCallback } from "../controllers/github";
 import { linkedinAuth } from "../controllers/linkedin";
 import { microsoftAuth } from "../controllers/microsoft";
@@ -24,12 +24,13 @@ router.get('/google/callback', passport.authenticate('google', { failureRedirect
 
 router.post("/facebook", facebookAuth); 
 
-router.post("/twitter", twitterAuth);
+router.get("/twitter", twitterAuth);
+router.get("/twitter/callback", twitterAuthCallback);
 
 router.get("/github", githubAuth);
-router.post("/github/callback", githubAuthCallback);
+router.get("/github/callback", githubAuthCallback);
 
-router.post("/linkedin", linkedinAuth);
+router.get("/linkedin", linkedinAuth);
 
 router.post("/microsoft", microsoftAuth);
 
