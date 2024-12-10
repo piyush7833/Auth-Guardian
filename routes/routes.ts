@@ -2,7 +2,7 @@ import express from "express";
 import passport from 'passport';
 
 import { googleAuth, googleAuthCallback } from "../controllers/google";
-import { facebookAuth } from "../controllers/facebook";
+import { facebookAuth,facebookAuthCallback } from "../controllers/facebook";
 import { twitterAuth, twitterAuthCallback } from "../controllers/twitter";
 import { githubAuth, githubAuthCallback } from "../controllers/github";
 import { linkedinAuth } from "../controllers/linkedin";
@@ -15,14 +15,13 @@ import { test } from "../controllers/test";
 const router = express.Router();
 
 router.post("/test",test)
-router.get('/google', googleAuth);
+router.get('/auth/google', googleAuth);
 
-// Google OAuth callback route (should match the callbackURL in the GoogleStrategy)
-router.get('/google/callback', passport.authenticate('google', { failureRedirect: '/login' }), googleAuthCallback);
+router.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: '/login' }), googleAuthCallback);
 
+router.get('/auth/facebook', facebookAuth);
+router.get('/auth/facebook/callback', passport.authenticate('facebook', { failureRedirect: '/login' }), facebookAuthCallback); 
 
-
-router.post("/facebook", facebookAuth); 
 
 router.get("/twitter", twitterAuth);
 router.get("/twitter/callback", twitterAuthCallback);
