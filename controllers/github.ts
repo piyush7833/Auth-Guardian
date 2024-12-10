@@ -39,7 +39,6 @@ export const githubAuthCallback = async (req: Request, res: Response) => {
     const userResponse = await axios.get("https://api.github.com/user", {
       headers: { Authorization: `Bearer ${accessToken}` },
     });
-    console.log(userResponse);
     const data = {
       userName: userResponse.data.login,
       name: userResponse.data.name,
@@ -47,7 +46,6 @@ export const githubAuthCallback = async (req: Request, res: Response) => {
       phone: userResponse.data.phone,
       avatar: userResponse.data.avatar_url,
     };
-    console.log(data);
     return ResponseHandler(
       "Github Authenticated successfully",
       data,

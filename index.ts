@@ -38,12 +38,8 @@ app.use(
       return callback(null, true);
     },
   })
-);
+); 
 
-
-console.log(process.env.Twitter_Client_ID);
-console.log(process.env.Twitter_Client_Secret);
-console.log(process.env.Twitter_Callback_URL);
 
 // Initialize Passport and session
 app.use(passport.initialize());

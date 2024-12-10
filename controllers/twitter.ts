@@ -3,24 +3,25 @@ import { ResponseHandler } from "../helpers/response.helper";
 import { Request, Response } from "express";
 import { Strategy as TwitterStrategy } from "passport-twitter";
 
-// Configure Passport Twitter Strategy
+
 passport.use(
-    new TwitterStrategy(
-        {
-            consumerKey: process.env.TWITTER_CLIENT_ID as string,
-            consumerSecret: process.env.TWITTER_CLIENT_SECRET as string,
-            callbackURL: process.env.TWITTER_CALLBACK_URL as string,
-            includeEmail: true, // Ensures email is returned
-        },
-        function (token: string, tokenSecret: string, profile: any, done: any) {
+  new TwitterStrategy(
+    {
+      consumerKey: process.env.TWITTER_CLIENT_ID as string,
+      consumerSecret: process.env.TWITTER_CLIENT_SECRET as string,
+      callbackURL: process.env.TWITTER_CALLBACK_URL as string,
+      includeEmail: true,
+    },
+    function (token: string, tokenSecret: string, profile: any, done: any) {
       try {
         const userData = {
+          userName: profile.username,
           name: profile.displayName,
-          email: profile.emails?.[0]?.value || null, // Handles cases where email might not exist
+          phone:profile.phone || null,
+          email: profile.emails?.[0]?.value || null,
           avatar: profile.photos?.[0]?.value || null,
         };
 
-        console.log("Twitter Profile Data:", userData);
         return done(null, userData);
       } catch (error) {
         console.error("Error in Twitter strategy:", error);
@@ -29,6 +30,7 @@ passport.use(
     }
   )
 );
+
 
 // Serialize and Deserialize User
 passport.serializeUser((user: any, done) => {
@@ -62,10 +64,8 @@ export const twitterAuthCallback = (req: Request, res: Response) => {
           console.error("Login Error:", loginErr);
           return ResponseHandler("Login failed", null, 500, true, res);
         }
-
-        console.log("Twitter Authentication Successful", user);
-        res.redirect("/"); // Redirect to your desired route
-      });
+        return ResponseHandler("Twitter Authentication Successful", user, 200, false, res);
+      }); 
     }
   )(req, res);
 };
