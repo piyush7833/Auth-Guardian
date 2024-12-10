@@ -9,7 +9,7 @@ import { linkedinAuth } from "../controllers/linkedin";
 import { microsoftAuth } from "../controllers/microsoft";
 import { metamaskAuth } from "../controllers/metamask";
 import { appleAuth } from "../controllers/apple";
-import { passkeyAuth, passkeyChallenge, passkeyLoginChallenge, passkeyLoginVerify, passkeyVerify } from "../controllers/passkey";
+import {  passkeyAuthInit, passkeyAuthVerify, passkeyRegisterInit, passkeyVerifyRegister } from "../controllers/passkey";
 import { test } from "../controllers/test";
 
 const router = express.Router();
@@ -38,11 +38,10 @@ router.post("/apple", appleAuth);
 
 router.post("/metamask",metamaskAuth);
 
-router.post("/passkey", passkeyAuth);
-router.post("/passkey-challenge", passkeyChallenge);
-router.post("/passkey-verify", passkeyVerify);
-router.post("/passkey-login-challenge", passkeyLoginChallenge);
-router.post("/passkey-login-verify", passkeyLoginVerify);
+router.get("/init-register", passkeyRegisterInit);
+router.post("/verify-register", passkeyVerifyRegister);
+router.get("/init-auth", passkeyAuthInit);
+router.post("/verify-auth", passkeyAuthVerify);
 
 
 export default router;

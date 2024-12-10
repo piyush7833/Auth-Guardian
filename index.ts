@@ -11,41 +11,54 @@ const allowedOrigins = [
   "http://localhost:3000",
   "http://127.0.0.1:5500",
   "http://localhost:5500",
+  "http://localhost:5173", // Correct origin without trailing slash
 ];
 
+// Middleware to parse JSON and URL-encoded data
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Session configuration
 app.use(
   session({
-    secret: "secret",
+    secret: "secret", // Replace with an environment variable in production
     resave: false,
     saveUninitialized: true,
   })
 );
 
+// CORS middleware
 app.use(
   cors({
     origin: function (origin, callback) {
-      // allow requests with no origin
-      // (like mobile apps or curl requests)
+      // console.log(origin, "origin"); // Log the origin for debugging
+
+      // Allow requests with no origin (like mobile apps, Postman, or curl)
       if (!origin) return callback(null, true);
-      if (allowedOrigins.indexOf(origin) === -1) {
-        var msg =
-          "The CORS policy for this site does not " +
-          "allow access from the specified Origin.";
+
+      // Check if the origin is in the allowed list
+      if (allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      } else {
+        // Handle disallowed origins
+        const msg =
+          "The CORS policy for this site does not allow access from the specified Origin.";
         return callback(new Error(msg), false);
       }
-      return callback(null, true);
     },
+    credentials: true, // Include cookies in CORS requests
   })
-); 
-
+);
 
 // Initialize Passport and session
 app.use(passport.initialize());
 app.use(passport.session());
+
+// Define your routes
 app.use("/api/auth-guardian", routes);
 
-app.listen(8000, () => {
-  console.log("Connected to Server");
+// Start the server
+const PORT = 8000;
+app.listen(PORT, () => {
+  console.log(`Server is running on http://localhost:${PORT}`);
 });
