@@ -21,21 +21,28 @@ async function signup() {
     { credentials: "include" }
   );
   const options = await initResponse.json();
+
   if (!initResponse.ok) {
     return showModalText(options.error);
   }
 
   // 2. Create passkey
-  const registrationJSON = await startRegistration(options);
+  const registrationJSON = await startRegistration(options.options);
 
   // 3. Save passkey in DB
+  // Get all cookies as a string
+const cookies = document.cookie;
+
+// Log the full cookie string
+console.log("All cookies:", cookies);
+
   const verifyResponse = await fetch(`${SERVER_URL}/verify-register`, {
     credentials: "include",
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ registrationJSON }),
+    body: JSON.stringify({ registrationJSON,regInfo: options.regInfo }),
   });
 
   const verifyData = await verifyResponse.json();

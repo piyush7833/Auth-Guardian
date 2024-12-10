@@ -24,6 +24,7 @@ app.use(
     secret: "secret", // Replace with an environment variable in production
     resave: false,
     saveUninitialized: true,
+    cookie: { secure: false }, // Set to true if using HTTPS
   })
 );
 
@@ -31,16 +32,11 @@ app.use(
 app.use(
   cors({
     origin: function (origin, callback) {
-      // console.log(origin, "origin"); // Log the origin for debugging
-
-      // Allow requests with no origin (like mobile apps, Postman, or curl)
       if (!origin) return callback(null, true);
 
-      // Check if the origin is in the allowed list
       if (allowedOrigins.includes(origin)) {
         return callback(null, true);
       } else {
-        // Handle disallowed origins
         const msg =
           "The CORS policy for this site does not allow access from the specified Origin.";
         return callback(new Error(msg), false);

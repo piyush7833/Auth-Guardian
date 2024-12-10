@@ -9,7 +9,6 @@ const CALLBACK_URL = process.env.GITHUB_CALLBACK_URL;
 export const githubAuth = async (req: Request, res: Response) => {
   try {
     const githubAuthUrl = `https://github.com/login/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${CALLBACK_URL}&scope=user`;
-    console.log(githubAuthUrl);
     res.redirect(githubAuthUrl);
   } catch (error) {
     return ResponseHandler("Something went wrong", null, 500, true, res);
