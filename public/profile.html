@@ -11,6 +11,8 @@
 
     <script src="https://unpkg.com/@simplewebauthn/browser/dist/bundle/index.umd.min.js"></script>
     <script>
+      import { startRegistration } from '@simplewebauthn/browser';
+      // const { startRegistration } = SimpleWebAuthnBrowser;
       const registerPasskeyButton = document.getElementById("register-passkey");
       registerPasskeyButton.addEventListener("click", async () => {
         const urlParams = new URLSearchParams(window.location.search);
@@ -25,14 +27,12 @@
             body: JSON.stringify({ userId }),
           }
         );
-        const data = await response.json();
+        const optionsJSON = await response.json();
 
-        const challenge = data.data.options; //server side challenge
+        const challenge = optionsJSON.data.options; //server side challenge
         console.log("object");
         console.log(challenge)
-        const authResponse = await SimpleWebAuthnBrowser.startRegistration(
-          challenge
-        ); //navigator.credentials.create is called
+        const authResponse  = await startRegistration({ optionsJSON });//navigator.credentials.create is called
         console.log("object2", authResponse);
 
         await fetch(`http://localhost:8000/api/auth-guardian/passkey-verify`, {
