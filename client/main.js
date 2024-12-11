@@ -6,9 +6,19 @@ const emailInput = document.querySelector("[data-email]");
 const modal = document.querySelector("[data-modal]");
 const closeButton = document.querySelector("[data-close]");
 
+const googleButton=document.querySelector("[data-google]")
+const githubButton=document.querySelector("[data-github]")
+const twitterbutton = document.querySelector("[data-twitter]")
+const facebookbutton = document.querySelector("[data-facebook]")
+
 signupButton.addEventListener("click", signup);
 loginButton.addEventListener("click", login);
 closeButton.addEventListener("click", () => modal.close());
+
+googleButton.addEventListener("click",googleAuth);
+githubButton.addEventListener("click",githubAuth);
+twitterbutton.addEventListener("click",twitterAuth);
+facebookbutton.addEventListener("click",facebookAuth);
 
 const SERVER_URL = "http://localhost:8000/api/auth-guardian";
 
@@ -95,4 +105,45 @@ async function login() {
 function showModalText(text) {
   modal.querySelector("[data-content]").innerText = text;
   modal.showModal();
+}
+
+
+async function googleAuth (){
+  try {
+    const res=await fetch(
+      `${SERVER_URL}/auth/google`,
+    );
+  } catch (error) {
+    showModalText(error)
+  }
+}
+
+async function githubAuth (){
+  try {
+    const res=await fetch(
+      `${SERVER_URL}/github`,
+    );
+  } catch (error) {
+    showModalText(error)
+  }
+}
+
+async function twitterAuth (){
+  try {
+    const res=await fetch(
+      `${SERVER_URL}/twitter`,
+    );
+  } catch (error) {
+    showModalText(error)
+  }
+}
+
+async function facebookAuth (){
+  try {
+    const res=await fetch(
+      `${SERVER_URL}/auth/facebook`,
+    );
+  } catch (error) {
+    showModalText(error)
+  }
 }

@@ -10,11 +10,9 @@ import { microsoftAuth } from "../controllers/microsoft";
 import { metamaskAuth } from "../controllers/metamask";
 import { appleAuth } from "../controllers/apple";
 import {  passkeyAuthInit, passkeyAuthVerify, passkeyRegisterInit, passkeyVerifyRegister } from "../controllers/passkey";
-import { test } from "../controllers/test";
 
 const router = express.Router();
 
-router.post("/test",test)
 router.get('/auth/google', googleAuth);
 
 router.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: '/login' }), googleAuthCallback);

@@ -31,7 +31,7 @@
     "@types/passport-google-oauth20": "^2.0.16",
     "@types/passport-twitter": "^1.0.40",
     "axios": "^1.7.9",
-    "nodemon": "^3.1.0",
+    "nodemon": "^3.1.7",
     "ts-node": "^10.9.2",
     "typescript": "^5.6.3"
   },
