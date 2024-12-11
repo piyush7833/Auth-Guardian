@@ -110,9 +110,10 @@ function showModalText(text) {
 
 async function googleAuth (){
   try {
-    const res=await fetch(
-      `${SERVER_URL}/auth/google`,
-    );
+    // const res=await fetch(
+    //   `${SERVER_URL}/auth/google`,
+    // );
+    window.open( `${SERVER_URL}/auth/google`, "_blank");
   } catch (error) {
     showModalText(error)
   }
@@ -120,19 +121,7 @@ async function googleAuth (){
 
 async function githubAuth (){
   try {
-    const res=await fetch(
-      `${SERVER_URL}/github`,
-    );
-  } catch (error) {
-    showModalText(error)
-  }
-}
-
-async function twitterAuth (){
-  try {
-    const res=await fetch(
-      `${SERVER_URL}/twitter`,
-    );
+    window.open( `${SERVER_URL}/github`, "_blank");
   } catch (error) {
     showModalText(error)
   }
@@ -140,9 +129,15 @@ async function twitterAuth (){
 
 async function facebookAuth (){
   try {
-    const res=await fetch(
-      `${SERVER_URL}/auth/facebook`,
-    );
+    window.open( `${SERVER_URL}/auth/facebook`, "_blank");
+  } catch (error) {
+    showModalText(error)
+  }
+}
+
+async function twitterAuth (){
+  try {
+    window.open( `${SERVER_URL}/twitter`, "_blank");
   } catch (error) {
     showModalText(error)
   }

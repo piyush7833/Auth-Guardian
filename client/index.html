@@ -1,36 +1,168 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite App</title>
-  </head>
-  <body style="display: flex; flex-direction: column; gap: 1rem">
-    <input
-      data-email
-      type="email"
-      placeholder="Email"
-      style="margin-bottom: 1rem; font-size: 3rem"
-    />
-    <button data-signup style="font-size: 4rem">Sign Up</button>
-    <button data-login style="font-size: 4rem">Log In</button>
-    <button data-google style="font-size: 4rem">Google</button>
-    <button data-github style="font-size: 4rem">Github</button>
-    <button data-linkedin style="font-size: 4rem">LinkedIn</button>
-    <button data-twitter style="font-size: 4rem">Twitter</button>
-    <button data-facebook style="font-size: 4rem">Facebook</button>
-    <button data-microsoft style="font-size: 4rem">Microsoft</button>
-    <button data-apple style="font-size: 4rem">Apple</button>
-    <dialog data-modal style="font-size: 3rem">
-      <button
-        data-close
-        style="font-size: 2rem; position: absolute; top: 0; right: 0"
-      >
-        &times;
-      </button>
-      <div data-content></div>
-    </dialog>
-    <script type="module" src="/main.js"></script>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Simple UI - Vite App</title>
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      margin: 0;
+      /* padding: 2rem; */
+      font-family: 'Arial', sans-serif;
+      background: #ffffff;
+      color: #333;
+      height: 100vh;
+    }
+
+    input[data-email] {
+      font-size: 1.2rem;
+      padding: 0.5rem;
+      width: 80%;
+      max-width: 350px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      outline: none;
+    }
+
+    input[data-email]:focus {
+      border-color: #007aff;
+      box-shadow: 0 0 4px rgba(0, 122, 255, 0.5);
+    }
+
+    button {
+      font-size: 1.2rem;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      width: 80%;
+      max-width: 350px;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+    }
+
+    button[data-signup] {
+      background: #4caf50;
+      color: white;
+    }
+
+    button[data-login] {
+      background: #007aff;
+      color: white;
+    }
+
+    button[data-google] {
+      background: #db4437;
+      color: white;
+    }
+
+    button[data-github] {
+      background: #333;
+      color: white;
+    }
+
+    button[data-linkedin] {
+      background: #0077b5;
+      color: white;
+    }
+
+    button[data-twitter] {
+      background: #1da1f2;
+      color: white;
+    }
+
+    button[data-facebook] {
+      background: #4267b2;
+      color: white;
+    }
+
+    button[data-microsoft] {
+      background: #f25022;
+      color: white;
+    }
+
+    button[data-apple] {
+      background: #555;
+      color: white;
+    }
+
+    dialog[data-modal] {
+      border: none;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      padding: 2rem;
+      background: #ffffff;
+      width: fit-content;
+      /* max-width: 400px; */
+      text-align: center;
+      position: relative;
+      animation: fadeIn 0.3s ease-in-out;
+      overflow: hidden;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: scale(0.9);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    button[data-close] {
+      background: transparent;
+      border: none;
+      font-size: 1.5rem;
+      font-weight: bold;
+      cursor: pointer;
+      color: #333;
+      position: absolute;
+      top: 0.5rem;
+      /* right: 0.5rem; */
+      transition: color 0.3s ease;
+    }
+
+    button[data-close]:hover {
+      color: #e60000;
+    }
+
+    div[data-content] {
+      font-size: 1.2rem;
+      color: #333;
+      margin-top: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <input
+    data-email
+    type="email"
+    placeholder="Enter your email"
+  />
+  <button data-signup>Sign Up</button>
+  <button data-login>Log In</button>
+  <button data-google>Continue with Google</button>
+  <button data-github>Continue with GitHub</button>
+  <button data-linkedin>Continue with LinkedIn</button>
+  <button data-twitter>Continue with Twitter</button>
+  <button data-facebook>Continue with Facebook</button>
+  <button data-microsoft>Continue with Microsoft</button>
+  <button data-apple>Continue with Apple</button>
+  <dialog data-modal>
+    <button data-close>&times;</button>
+    <div data-content>Your content goes here</div>
+  </dialog>
+  <script type="module" src="/main.js"></script>
+</body>
 </html>
